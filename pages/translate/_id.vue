@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Header -->
 			<header id="header" :style='{"background-color": "#225473"}'>
-      <a class="logo" href="/">Industrious</a>
+      <a class="logo" href="/">Speech To Text Online</a>
     </header>
 
     <section class="wrapper" id="main">
@@ -28,6 +28,7 @@
         <div v-else>langObj is null</div>
       </div>
     </section>
+    <Footer />
   </div>
 </template>
 
@@ -35,11 +36,13 @@
 import Logo from "~/components/Logo.vue";
 import SpeechToText from "@/components/SpeechToText";
 import langList from "~/components/SpeechToText/config.js";
+import Footer from '~/components/Footer.vue'
 
 export default {
   components: {
     Logo,
-    SpeechToText
+    SpeechToText,
+    Footer
   },
   computed: {
     recordButton: function() {
