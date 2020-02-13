@@ -12,6 +12,7 @@ async function start () {
   const nuxt = new Nuxt(config)
 
   const { host, port } = nuxt.options.server
+  app.use('/sitemap.xml', require('./apis/sitemap'))
 
   await nuxt.ready()
   // Build only in dev mode

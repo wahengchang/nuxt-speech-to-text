@@ -13,9 +13,10 @@
     "kill:3000": "kill $(lsof -t -i:3000)"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
     "cross-env": "^5.2.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nuxt": "^2.0.0",
+    "sitemap": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"
