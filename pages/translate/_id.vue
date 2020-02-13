@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Header -->
-    <header id="header">
+			<header id="header" :style='{"background-color": "#225473"}'>
       <a class="logo" href="/">Industrious</a>
     </header>
 

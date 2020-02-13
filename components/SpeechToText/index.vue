@@ -8,7 +8,6 @@
 <script>
 export default {
   name: 'vue-speech',
-
   props: {
     lang: {
       type: String,
