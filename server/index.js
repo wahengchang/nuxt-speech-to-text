@@ -14,6 +14,10 @@ async function start () {
   const { host, port } = nuxt.options.server
   app.use('/sitemap.xml', require('./apis/sitemap'))
 
+  app.get('/google38bfcad4aba1778e.html', function(req, res) {
+    res.sendFile(__dirname+'/google38bfcad4aba1778e.html')
+  });
+
   await nuxt.ready()
   // Build only in dev mode
   if (config.dev) {
