@@ -2,18 +2,17 @@ const sm = require('sitemap')
 const config = require('../../config.json')
 
 const router = require('express').Router()
-router.get('/', async function(req, res) {
-    const host = req.get('host');
-    const {protocol} = req
 
+const hostname = process.env.HOST_NAME || 'http://localhost:3000'
+router.get('/', async function(req, res) {
     const sitemap = sm.createSitemap({
-        hostname: host,
+        hostname,
         cacheTime: 600000
     })
 
     config.forEach(item => {
         sitemap.add({
-            url: `${protocol}://${host}/translate/${item.value}`,
+            url: `${hostname}/translate/${item.value}`,
             changefreq: 'monthly'
         })
     });
