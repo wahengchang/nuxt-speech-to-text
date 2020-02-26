@@ -32,8 +32,10 @@ export default {
   methods: {
     checkApi () {
       try {
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition
         const {SpeechRecognition} = window
+
+        console.log('SpeechRecognition: ', SpeechRecognition)
 
         if (!SpeechRecognition) {
           throw new Error('Speech Recognition does not exist on this browser. Use Chrome or Firefox')
