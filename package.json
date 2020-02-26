@@ -1,7 +1,7 @@
 {
-  "name": "parse-nuxt-speech",
+  "name": "nuxt-speech-to-text",
   "version": "1.0.0",
-  "description": "My astounding Nuxt.js project",
+  "description": "This is a free online speech-to-text converter. A browser base online tool, allowing Windows, iOS, Android, whatever devices supporting browser.",
   "author": "wahengchang",
   "private": true,
   "scripts": {
