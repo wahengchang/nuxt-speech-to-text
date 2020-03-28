@@ -24,6 +24,14 @@
             placeholder="https://www.instagram.com/p/B78mO-3jgYD/"
             v-model="value"
           />
+          <div class="row gtr-uniform separatorRowMargin">
+            <div class="col-4 col-4-xsmall">
+              <label class='separatorLabel'> Separator:</label>
+            </div>
+            <div class="col-4 col-4-xsmall">
+              <input type="text" name="separator" v-model="separator"  placeholder=",">
+            </div>
+          </div>
         </div>
         <div v-else>langObj is null</div>
       </div>
@@ -60,20 +68,31 @@ export default {
     return {
       value: "",
       isSpeechOn: false,
-      id
+      id,
+      separator: ','
     };
   },
   methods: {
     onTranscriptionEnd: function(textObj = {}) {
+      const {separator} = this
       const { transcription } = textObj;
 
-      this.value += " " + transcription.join(" ");
+      if(!this.value) return this.value = transcription.join(" ");
+
+      return this.value += `${separator}` + transcription.join(" ");
     }
   }
 };
 </script>
 
 <style scoped>
+.separatorRowMargin{
+  margin-top: 5px;
+}
+.separatorLabel{
+  line-height: 50px;
+  font-size: 15px;
+}
 .content {
   max-width: 600px;
   margin: auto;
