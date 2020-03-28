@@ -40,7 +40,8 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import Footer from '~/components/Footer.vue'
-import langList from '~/components/SpeechToText/config.js'
+import config from '~/components/SpeechToText/config.js'
+const {speech: langList} = config
 
 export default {
   components: {

@@ -13,6 +13,8 @@
     "kill:3000": "kill $(lsof -t -i:3000)"
   },
   "dependencies": {
+    "@vitalets/google-translate-api": "^3.0.0",
+    "axios": "^0.19.2",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "nuxt": "^2.0.0",

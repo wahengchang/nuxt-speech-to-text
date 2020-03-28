@@ -5,36 +5,57 @@
       <a class="logo" href="/">Speech To Text Online</a>
     </header>
 
-    <section class="wrapper" id="main">
-      <div class="inner">
-        <div class="content" v-if="langObj">
-          {{langObj && langObj.display || '--'}}
-          <div class="buttonBorder" @click="()=> isSpeechOn=!isSpeechOn">
-            <span :class="recordButton"></span>
-          </div>
-          <SpeechToText
-            :lang="langObj.value"
-            v-if="isSpeechOn"
-            :onTranscriptionEnd="onTranscriptionEnd"
-          />
+    <!-- <div class='row functionBar'> -->
+    <section class="" id="main">
+        <div class="inner">
+          <div class="content" v-if="langObj">
+            <div class="row">
+              <div class="col-12 col-12-xsmall">
+                {{langObj && langObj.display || '--'}}
+                <div class="buttonBorder" @click="()=> isSpeechOn=!isSpeechOn">
+                  <span :class="recordButton"></span>
+                </div>
+                <SpeechToText
+                  :lang="langObj.value"
+                  v-if="isSpeechOn"
+                  :onTranscriptionEnd="onTranscriptionEnd"
+                />
+                <textarea
+                  type="text"
+                  name="igUrl"
+                  placeholder="https://www.instagram.com/p/B78mO-3jgYD/"
+                  v-model="value"
+                />
+              </div>
+            </div>
 
-          <textarea
-            type="text"
-            name="igUrl"
-            placeholder="https://www.instagram.com/p/B78mO-3jgYD/"
-            v-model="value"
-          />
-          <div class="row gtr-uniform separatorRowMargin">
-            <div class="col-4 col-4-xsmall">
-              <label class='separatorLabel'> Separator:</label>
+            <div class='row functionBar separatorRowMargin'>
+              <div class="col-8 col-8-xsmall">
+                <select name="translateLanguage" class='dropdownTranslate' v-model="translateLanguage">
+                  <option
+                    v-for='item in translateList'
+                    :value="item.value"
+                    :key='item.value'
+                  >
+                      {{item.display}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-4 col-4-xsmall">
+                <a href="#" class="icon fa-language translateButton" @click='onHandleTranslate'></a>
+              </div>
             </div>
-            <div class="col-4 col-4-xsmall">
-              <input type="text" name="separator" v-model="separator"  placeholder=",">
+            <div class="row gtr-uniform separatorRowMargin">
+              <div class="col-3 col-3-xsmall">
+                <label class='separatorLabel'> Separator:</label>
+              </div>
+              <div class="col-4 col-4-xsmall">
+                <input type="text" name="separator" v-model="separator"  placeholder=",">
+              </div>
             </div>
           </div>
+          <div v-else>langObj is null</div>
         </div>
-        <div v-else>langObj is null</div>
-      </div>
     </section>
     <Footer />
   </div>
@@ -43,8 +64,12 @@
 <script>
 import Logo from "~/components/Logo.vue";
 import SpeechToText from "@/components/SpeechToText";
-import langList from "~/components/SpeechToText/config.js";
+import config from "~/components/SpeechToText/config.js";
 import Footer from '~/components/Footer.vue'
+import axios from 'axios'
+
+const {speech: langList, translate: translateList} = config
+const DEFAULT_TRANSLATE_LANG = 'en'
 
 export default {
   components: {
@@ -69,10 +94,23 @@ export default {
       value: "",
       isSpeechOn: false,
       id,
-      separator: ','
+      separator: ',',
+      translateList,
+      translateLanguage: DEFAULT_TRANSLATE_LANG
     };
   },
   methods: {
+    onHandleTranslate: async function() {
+      try {
+        const {value, translateLanguage} = this
+        const { data } = await axios.get(`/apis/translate?text=${value}&to=${translateLanguage}`)
+        this.value =  data.text
+      }
+      catch(e){
+        alert(e)
+      }
+
+    },
     onTranscriptionEnd: function(textObj = {}) {
       const {separator} = this
       const { transcription } = textObj;
@@ -86,12 +124,24 @@ export default {
 </script>
 
 <style scoped>
+.functionBar {
+}
+.dropdownTranslate {
+  line-height: 30px;
+  height: 30px;
+}
+.translateButton {
+  padding: 0 10px;
+  font-size: 20px;
+}
 .separatorRowMargin{
   margin-top: 5px;
 }
 .separatorLabel{
-  line-height: 50px;
-  font-size: 15px;
+}
+input[name="separator"]{
+  line-height: 30px;
+  height: 30px;
 }
 .content {
   max-width: 600px;
