@@ -16,7 +16,7 @@
     "@vitalets/google-translate-api": "^7.0.0",
     "axios": "^0.19.2",
     "cross-env": "^5.2.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "nuxt": "^2.0.0",
     "sitemap": "^5.1.0"
   },
